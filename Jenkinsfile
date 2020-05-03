@@ -1,15 +1,15 @@
 pipeline {
     agent any 
     environment {
-        registry = "ananthkannan/mywebapp"
-        registryCredential = '1ae9f8ea-826b-4d2c-9a11-344647f3cdf3'
+        registry = "ananthkannan/mypython-app-may20"
+        registryCredential = 'fa32f95a-2d3e-4c7b-8f34-11bcc0191d70'
         dockerImage = ''
     }
     
     stages {
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'b17870ac-fb7f-411e-8f33-574d5c8a22be', url: 'https://github.com/akannan1087/myPythonDockerRepo']]])       
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/akannan1087/myPythonDockerRepo']]])       
             }
         }
         
