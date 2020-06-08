@@ -16,7 +16,7 @@ spec:
       - name: my-php-app
         image: ananthkannan/mypython-app-may20
         ports:
-        - containerPort: 8080
+        - containerPort: 5000
         
 # service type loadbalancer       
 ---
