@@ -1,31 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-php-app
+  name: my-php-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      run: my-php-app
-  replicas: 2
+      app: php-app
   template:
     metadata:
       labels:
-        run: my-php-app
+        app: php-app
     spec:
       containers:
       - name: my-php-app
         image: ananthkannan/mypython-app-may20
         ports:
-        - containerPort: 5000
+        - containerPort: 8080
+        
+# service type loadbalancer       
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-php-app
-  labels:
-    run: my-php-app
+  name: php-app-svc
 spec:
-  ports:
-  - port: 80
-    protocol: TCP
   selector:
-    run: my-php-app
+    app: php-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
