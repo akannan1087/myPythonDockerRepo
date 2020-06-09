@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-php-app
-        image: ananthkannan/mypython-app-may20
+        image: ananthkannan/mypython-app-may20:latest
         ports:
         - containerPort: 5000
         
