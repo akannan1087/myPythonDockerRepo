@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-php-deployment
+  namespace: jenkins-k8s-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: php-app
+  template:
+    metadata:
+      labels:
+        app: php-app
+    spec:
+      containers:
+      - name: my-php-app
+        image: ananthkannan/mypython-app-may20
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-app-svc
+  namespace: jenkins-k8s-deploy
+spec:
+  selector:
+    app: php-app
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer
