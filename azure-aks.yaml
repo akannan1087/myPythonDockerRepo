@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-php-deployment
+  name: my-python-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: php-app
+      app: my-python-app
   template:
     metadata:
       labels:
-        app: php-app
+        app: my-python-app
     spec:
       containers:
-      - name: my-php-app
-        image: myakacrregistry/my-python-app
+      - name: my-python-app
+        image: myakacrregistry.azurecr.io/myakacrregistry/my-python-app
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: php-app-svc
+  name: my-python-app-svc
 spec:
   selector:
-    app: php-app
+    app: my-python-app
   ports:
     - protocol: TCP
       port: 5000
