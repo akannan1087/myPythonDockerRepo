@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-php-deployment
+  name: my-python-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: php-app
+      app: python-app
   template:
     metadata:
       labels:
-        app: php-app
+        app: python-app
     spec:
       containers:
-      - name: my-php-app
+      - name: my-python-app
         image: akdevopscoaching/mypython-app
         imagePullPolicy: Always
         ports:
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: php-app-svc
+  name: python-app-svc
 spec:
   selector:
-    app: php-app
+    app: python-app
   ports:
     - protocol: TCP
       port: 5000
