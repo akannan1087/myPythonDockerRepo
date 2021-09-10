@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: myakacrregistry.azurecr.io/myakacrregistry/my-python-app
+        image: myecrrepo.azurecr.io/myakacrregistry/my-python-app
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
