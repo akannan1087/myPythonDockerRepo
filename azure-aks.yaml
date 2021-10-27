@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: myacr3210.azurecr.io/akannan1087/mypythondockerrepo:1278
+        image: myacrrepo31.azurecr.io/akannan1087/mypythondockerrepo:1302
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
