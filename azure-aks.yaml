@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mypythondockerrepo
-        image: myacrrepo31.azurecr.io/akannan1087/mypythondockerrepo:latest
+        image: myacrrepo31.azurecr.io/akannan1087/mypythondockerrepo:1317
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
