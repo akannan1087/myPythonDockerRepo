@@ -9,8 +9,6 @@ trigger:
 resources:
 - repo: self
 
-- stage: Build
-  displayName: Build image
   jobs:
   - job: Build
     displayName: Build
