@@ -1,14 +1,18 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+- master
 
 resources:
 - repo: self
 
+
+
+stages:
+- stage: Build
+  displayName: Build image
   jobs:
   - job: Build
     displayName: Build
@@ -28,7 +32,7 @@ resources:
         repository: '$(AWS_ECR_REPOSITORY_URI)'
         tags: |
           $(Build.BuildId)
-          latest
+          
 
 
     - task: CopyFiles@2
@@ -50,26 +54,5 @@ resources:
         sourceImageTag: '$(Build.BuildId)'
         repositoryName: '$(AWS_ECR_REPOSITORY_NAME)'
         pushTag: '$(Build.BuildId)'
-    - task: ECRPushImage@1
-      inputs:
-        awsCredentials: '$(AWS_CREDENTIALS)'
-        regionName: '$(AWS_REGION)'
-        imageSource: 'imagename'
-        sourceImageName: '$(AWS_ECR_REPOSITORY_URI)'
-        sourceImageTag: '$(Build.BuildId)'
-        repositoryName: '$(AWS_ECR_REPOSITORY_NAME)'
-        pushTag: 'latest'
         
-
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+        
