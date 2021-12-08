@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: akdevopscoaching/mpythonappnov28
+        image: akdevopscoaching/mypython-app
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
