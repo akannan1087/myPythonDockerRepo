@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-python-app-deployment
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: python-app
@@ -17,7 +17,7 @@ spec:
         image: 211223789150.dkr.ecr.us-east-2.amazonaws.com/my-python-repo
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 5000
 # service type loadbalancer       
 ---
 apiVersion: v1
@@ -29,6 +29,6 @@ spec:
     app: python-app
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 5000
+      targetPort: 5000
   type: LoadBalancer
