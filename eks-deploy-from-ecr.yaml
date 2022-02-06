@@ -17,7 +17,7 @@ spec:
         image: 211223789150.dkr.ecr.us-east-2.amazonaws.com/my-python-repo
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000
+        - containerPort: 80
 # service type loadbalancer       
 ---
 apiVersion: v1
