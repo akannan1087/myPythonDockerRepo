@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-python-app-deployment
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: python-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: 211223789150.dkr.ecr.us-east-2.amazonaws.com/my-docker-repo
+        image: 211223789150.dkr.ecr.us-east-2.amazonaws.com/my-docker-reposdsds
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
