@@ -35,4 +35,5 @@ stages:
         imageSource: 'imageid'
         sourceImageId: '$(imageName):$(tag)'
         repositoryName: '$(repoName)'
+        pushTag: $(tag)
         forceDockerNamingConventions: true
