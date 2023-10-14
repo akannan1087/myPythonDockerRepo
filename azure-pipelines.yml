@@ -33,6 +33,6 @@ stages:
       inputs:
         command: 'push'
         artifactoryService: 'Art_SVC_conn'
-        targetRepo: 'example-repo-local'
-        imageName: '$(imageName)'
+        targetRepo: '$(repoName)'
+        imageName: '$(imageName):$(tag)'
     
