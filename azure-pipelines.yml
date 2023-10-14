@@ -29,4 +29,10 @@ stages:
         repository: $(repoName)
         tags: |
           $(tag)
+    - task: ArtifactoryDocker@1
+      inputs:
+        command: 'push'
+        artifactoryService: 'Art_SVC_conn'
+        targetRepo: 'example-repo-local'
+        imageName: '$(imageName)'
     
