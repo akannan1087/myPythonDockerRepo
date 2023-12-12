@@ -1,7 +1,7 @@
 name: Om GitHub Actions Demo
 on: 
   push:
-    branches: ["main"]
+    branches: ["master"]
 
 jobs:
     Explore-GitHub-Actions:
