@@ -9,7 +9,7 @@ variables:
   dockerRegistryServiceConnection: '6a2677fb-b7c1-4aa2-a4ef-1d3321130dd9'
   imageRepository: 'kphaniprasadmypythondockerrepo'
   containerRegistry: 'devttesttet.azurecr.io'
-  dockerfilePath: '**/*Dockerfile'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
