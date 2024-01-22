@@ -26,7 +26,7 @@ stages:
         tags: '$(tag)'
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(agent.builddirectory'
+        SourceFolder: '$(agent.builddirectory)'
         Contents: '**'
         TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
