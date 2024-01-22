@@ -6,9 +6,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '674a5de4-5abb-4293-a313-c9692e9e3e81'
+  dockerRegistryServiceConnection: '6a2677fb-b7c1-4aa2-a4ef-1d3321130dd9'
   imageRepository: 'kphaniprasadmypythondockerrepo'
-  containerRegistry: 'dkrmvnpkg.azurecr.io'
+  containerRegistry: 'devttesttet.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
