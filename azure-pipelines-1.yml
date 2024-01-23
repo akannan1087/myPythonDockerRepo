@@ -7,13 +7,13 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '6a2677fb-b7c1-4aa2-a4ef-1d3321130dd9'
-  imageRepository: 'kphaniprasadmypythondockerrepo'
+  imageRepository: 'devttesttet'
   containerRegistry: 'devttesttet.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  # vmImageName: 'ubuntu-latest'
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -22,7 +22,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      name: kubernetes-agent
+      name: '$(vmImageName)'
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
