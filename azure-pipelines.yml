@@ -17,7 +17,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build & Push Image
       inputs:
         containerRegistry: 'ACR-k8s'
         repository: 'devttesttet'
