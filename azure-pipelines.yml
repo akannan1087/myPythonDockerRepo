@@ -23,7 +23,7 @@ stages:
         repository: 'devttesttet'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+        tags: 'latest'
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(agent.builddirectory)'
