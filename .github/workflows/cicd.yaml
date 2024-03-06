@@ -18,6 +18,6 @@ jobs:
       with:
         status: ${{ job.status }}
         steps: ${{ toJson(steps) }}
-        channel: '#feb-2024-weekend-batch, feb-2020-weekend-batch'
+        channel: '#feb-2024-weekend-batch, #feb-2020-weekend-batch'
       if: always()
 
