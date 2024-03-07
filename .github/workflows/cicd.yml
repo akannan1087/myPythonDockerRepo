@@ -11,7 +11,7 @@ jobs:
     - uses: act10ns/slack@v2
       with:
         status: starting
-        channel: '#feb-2022-weekday-batch'
+        channel: '#feb-2021-weekday-batch'
         message: Starting Docker Build image...
       if: always()
     - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
         docker build -t my-docker-repo .
     - uses: act10ns/slack@v2
       with:
-        channel: '#feb-2022-weekday-batch'
+        channel: '#feb-2021-weekday-batch'
         status: ${{ job.status }}
         steps: ${{ toJson(steps) }}
       if: always()
