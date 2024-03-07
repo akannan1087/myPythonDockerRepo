@@ -8,7 +8,6 @@ jobs:
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
-    - name: slack - GitHub Actions Slack integration
     - uses: act10ns/slack@v2
       with:
         status: starting
@@ -19,7 +18,6 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t my-docker-repo .
-    - name: slack - GitHub Actions Slack integration
     - uses: act10ns/slack@v2
       with:
         channel: '#mar-2024-weekday-batch'
