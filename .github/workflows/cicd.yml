@@ -5,22 +5,8 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
-    - uses: act10ns/slack@v2
-      with:
-        status: starting
-        channel: '#mar-2024-weekend-batch'
-        message: Starting Docker Build image...
-      if: always()
     - uses: actions/checkout@v3
     - name: Build Docker image
       run: |
         docker build -t my-docker-repo .
-    - uses: act10ns/slack@v2
-      with:
-        channel: '#mar-2024-weekday-batch'
-        status: ${{ job.status }}
-        steps: ${{ toJson(steps) }}
-      if: always()
