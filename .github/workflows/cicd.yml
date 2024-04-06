@@ -1,4 +1,4 @@
-name: cicd-workflow with slack integration
+name: cicd-workflow to create docker image and upload into Dockerhub
 on:
   push:
     branches: [ "master" ]
