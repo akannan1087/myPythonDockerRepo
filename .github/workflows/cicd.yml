@@ -23,4 +23,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/mypythonapp:${github.sha}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/mypythonapp:latest
