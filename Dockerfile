@@ -1,21 +1,18 @@
-# this is my base image
-FROM alpine:3.5
+# Use the official Python image from the Docker Hub with a slim variant
+FROM python:3.9-slim
 
-# Install python and pip
-RUN apk add --update py2-pip
+# Set the working directory in the container
+WORKDIR /app
 
-# Install curl
-RUN apk --no-cache add curl
+# Copy the requirements file into the container at /app
+COPY requirements.txt .
 
-# install Python modules needed by the Python app
-COPY requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
+# Install any dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# copy files required for the app to run
-COPY app.py /usr/src/app/
-COPY templates/index.html /usr/src/app/templates/
+# Copy the rest of the application code into the container at /app
+COPY . .
 
-# tell the port number the container should expose
 EXPOSE 5000
 
 # run the application
