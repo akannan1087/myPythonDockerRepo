@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-python-deployment
+  name: my-python-app-deployment
 spec:
   replicas: 3
   selector:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: akdevopscoaching/mypython-app
+        image: 211223789150.dkr.ecr.us-east-1.amazonaws.com/devopscoach/my-python-repo:${BUILD_NUMBER}
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -29,6 +29,6 @@ spec:
     app: python-app
   ports:
     - protocol: TCP
-      port: 5000
+      port: 80
       targetPort: 5000
   type: LoadBalancer
