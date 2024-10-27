@@ -25,6 +25,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: python-app-svc
+  namespace: python-app-ns     # Namespace where the deployment will be created
 spec:
   selector:
     app: python-app
