@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-python-app-deployment
+  namespace: python-app-ns     # Namespace where the deployment will be created
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: python-app
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: 211223789150.dkr.ecr.us-east-1.amazonaws.com/my-python-repo
+        image: 211223789150.dkr.ecr.us-east-1.amazonaws.com/devopscoach/my-python-repo:${BUILD_NUMBER}
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -24,6 +25,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: python-app-svc
+  namespace: python-app-ns     # Namespace where the deployment will be created
 spec:
   selector:
     app: python-app
@@ -31,4 +33,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 5000
-  type: LoadBalancer
+  type: ClusterIP
