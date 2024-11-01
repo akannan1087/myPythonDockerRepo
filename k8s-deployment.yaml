@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: my-python-app
-        image: 211223789150.dkr.ecr.us-east-1.amazonaws.com/devopscoach/my-python-repo:${BUILD_NUMBER}
+        image: 211223789150.dkr.ecr.us-east-1.amazonaws.com/coachak/my-python-repo:${BUILD_NUMBER}
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
