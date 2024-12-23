@@ -18,7 +18,7 @@ jobs:
         java-version: '11'
     - uses: act10ns/slack@v2
       with:
-        channel: '#mar-2024-weekday-batch'
+        channel: '/#devops'
         status: ${{ job.status }}
         steps: ${{ toJson(steps) }}
       if: always()
