@@ -28,21 +28,14 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: Build Docker image 
       inputs:
-        command: buildAndPush
+        command: build
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-   #Publish Build Information
-    - task: Bash@3
-      displayName: "Log Image Details"
-      inputs:
-        targetType: inline
-        script: |
-          echo "Pushed Image: $(containerRegistry)/$(imageRepository):$(tag)"
     # Install Trivy Scanner on Agent
     - task: Bash@3
       displayName: "Install Trivy"
@@ -57,3 +50,19 @@ stages:
         targetType: inline
         script: |
           ./bin/trivy image --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
+    - task: Docker@2
+      displayName: push Docker image to container registry
+      inputs:
+        command: push
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+   #Publish Build Information
+    - task: Bash@3
+      displayName: "Log Image Details"
+      inputs:
+        targetType: inline
+        script: |
+          echo "Pushed Image: $(containerRegistry)/$(imageRepository):$(tag)"
