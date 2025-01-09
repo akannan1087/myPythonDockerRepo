@@ -50,13 +50,20 @@ stages:
         targetType: inline
         script: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+    - task: Bash@3
+      displayName: "Download JUnit Template"
+      inputs:
+        targetType: inline
+        script: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/junit.tpl -o junit.tpl
+
     # Run Trivy Scan
     - task: Bash@3
       displayName: "Run Trivy Scan"
       inputs:
         targetType: inline
         script: |
-          ./bin/trivy image --format template --template "@contrib/junit.tpl" --output trivy-report.xml --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
+          ./bin/trivy image --format template --template "junit.tpl" --output trivy-report.xml --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
     # Step 4: Publish Trivy XML Report as Artifact
     - task: PublishPipelineArtifact@1
       displayName: "Publish Trivy XML Report"
