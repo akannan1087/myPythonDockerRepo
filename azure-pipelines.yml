@@ -56,10 +56,16 @@ stages:
       inputs:
         targetType: inline
         script: |
-          ./bin/trivy image --format json --output trivy-report.json --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
-    # Publish Trivy Report as Artifact
+          ./bin/trivy image --format template --template "@contrib/junit.tpl" --output trivy-report.xml --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
+    # Step 4: Publish Trivy XML Report as Artifact
     - task: PublishPipelineArtifact@1
-      displayName: "Publish Trivy Scan Report"
+      displayName: "Publish Trivy XML Report"
       inputs:
-        targetPath: "$(System.DefaultWorkingDirectory)/trivy-report.json"
+        targetPath: "$(System.DefaultWorkingDirectory)/trivy-report.xml"
         artifact: "TrivyReport"
+
+    # Step 5: Publish Trivy Test Results
+    - task: PublishTestResults@2
+      displayName: "Publish Trivy Test Results"
+      inputs:
+        testResultsFiles: "$(System.DefaultWorkingDirectory)/trivy-report.xml"
