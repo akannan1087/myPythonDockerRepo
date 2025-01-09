@@ -56,4 +56,10 @@ stages:
       inputs:
         targetType: inline
         script: |
-          ./bin/trivy image --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
+          ./bin/trivy image --format json --output trivy-report.json --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
+    # Publish Trivy Report as Artifact
+    - task: PublishPipelineArtifact@1
+      displayName: "Publish Trivy Scan Report"
+      inputs:
+        targetPath: "$(System.DefaultWorkingDirectory)/trivy-report.json"
+        artifact: "TrivyReport"
