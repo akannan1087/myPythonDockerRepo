@@ -75,4 +75,5 @@ stages:
     - task: PublishTestResults@2
       displayName: "Publish Trivy Test Results"
       inputs:
-        testResultsFiles: "$(System.DefaultWorkingDirectory)/trivy-report.xml"
+        testResultsFormat: 'JUnit'
+        testResultsFiles: "**/trivy-report.xml"
