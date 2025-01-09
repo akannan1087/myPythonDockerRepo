@@ -36,3 +36,24 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+   #Publish Build Information
+    - task: Bash@3
+      displayName: "Log Image Details"
+      inputs:
+        targetType: inline
+        script: |
+          echo "Pushed Image: $(containerRegistry)/$(imageRepository):$(tag)"
+    # Install Trivy Scanner on Agent
+    - task: Bash@3
+      displayName: "Install Trivy"
+      inputs:
+        targetType: inline
+        script: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+    # Run Trivy Scan
+    - task: Bash@3
+      displayName: "Run Trivy Scan"
+      inputs:
+        targetType: inline
+        script: |
+          ./bin/trivy image --severity HIGH,CRITICAL,MEDIUM --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
