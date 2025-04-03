@@ -10,17 +10,10 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t my-docker-repo .
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
+    - name: Run Trivy Scan
+      uses: aquasecurity/trivy-action@master
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Build and push
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/pythonapp:latest
+        image-ref: 'my-docker-repo:latest'
+        format: 'table'
+        exit-code: 1 # Fails the build if vulnerabilities are found
+        severity: 'CRITICAL,HIGH'
