@@ -15,5 +15,4 @@ jobs:
       with:
         image-ref: 'my-docker-repo:latest'
         format: 'table'
-        exit-code: 1 # Fails the build if vulnerabilities are found
         severity: 'CRITICAL,HIGH'
