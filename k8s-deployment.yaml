@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: apps/v2
 kind: Deployment
 metadata:
   name: my-python-app-deployment
@@ -21,7 +21,7 @@ spec:
         - containerPort: 5000
 # service type loadbalancer       
 ---
-apiVersion: v1
+apiVersion: v2
 kind: Service
 metadata:
   name: python-app-svc
