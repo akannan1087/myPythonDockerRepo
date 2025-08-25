@@ -22,5 +22,5 @@ stages:
         imageSource: 'imagename'
         sourceImageName: $(DOCKER_REPOSITORY_NAME)
         sourceImageTag: $(Build.BuildId)
-        pushTag: latest
+        pushTag: 2.0
         repositoryName: $(DOCKER_REPOSITORY_NAME)
