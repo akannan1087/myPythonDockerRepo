@@ -2,7 +2,7 @@ pipeline {
     agent any
         environment {
         //once you sign up for Docker hub, use that user_id here
-        registry = "richiyo26/richiyo26-myphp-app-aug26"
+        registry = "richiyo26/richiyo26myphp"
         //- update your credentials ID after creating credentials for connecting to Docker Hub
         registryCredential = '7e654cd6-0f01-499f-9b11-58023ed1c877'
         dockerImage = ''
