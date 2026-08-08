@@ -1,65 +1,30 @@
 pipeline {
-    agent any
-        environment {
-        //once you sign up for Docker hub, use that user_id here
-        registry = "richiyo26/richiyo26myphp"
-        //- update your credentials ID after creating credentials for connecting to Docker Hub
-        registryCredential = '7e654cd6-0f01-499f-9b11-58023ed1c877'
-        dockerImage = ''
-    }
-    stages {
+agent any
 
-        stage ('checkout') {
-            steps {
-            checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Richiyo07/myPythonDockerRepo']])
-            }
-        }
-       
-        stage ('Build docker image') {
-            steps {
-                script {
-                dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                //dockerImage = docker.build registry + ":$BUILD_NUMBER"
+```
+environment {
+    // Once you sign up for Docker Hub, use that user ID here
+    registry = "richiyo26/richiyo26myphp"
 
-                }
-            }
-        }
-       
-         // Uploading Docker images into Docker Hub
-    stage('Upload Image') {
-     steps{   
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-            }
-        }
-      }
-    }
+    // Update this credentials ID after creating credentials for connecting to Docker Hub
+    registryCredential = '7e654cd6-0f01-499f-9b11-58023ed1c877'
 
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
-   
-    stage ('K8S Deploy') {
-        steps {
-            script {
-                kubernetesDeploy(
-                    configs: 'k8s-deployment.yaml',
-                    kubeconfigId: 'K8S',
-                    enableConfigSubstitution: true
-                    )           
-               
-            }
-        }
-    }
-  
-    }  
+    dockerImage = ''
 }
 
-always {
-  // remove built docker image and prune system
-  print 'Cleaning up the Docker system.'
-  sh 'docker system prune -f'
+stages {
+    stage('checkout') {
+        steps {
+            checkout scmGit(
+                branches: [[name: '*/master']],
+                extensions: [],
+                userRemoteConfigs: [[
+                    url: 'https://github.com/Richiyo07/myPythonDockerRepo'
+                ]]
+            )
+        }
+    }
+}
+```
+
 }
