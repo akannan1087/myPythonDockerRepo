@@ -1,12 +1,11 @@
 pipeline {
 agent any
 
-```
 environment {
     // Once you sign up for Docker Hub, use that user ID here
     registry = "richiyo26/richiyo26myphp"
 
-    // Update this credentials ID after creating credentials for connecting to Docker Hub
+    // Jenkins credentials ID for Docker Hub
     registryCredential = '7e654cd6-0f01-499f-9b11-58023ed1c877'
 
     dockerImage = ''
@@ -25,6 +24,5 @@ stages {
         }
     }
 }
-```
 
 }
