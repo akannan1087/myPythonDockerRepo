@@ -1,28 +1,51 @@
-pipeline {
-agent any
-
-environment {
-    // Once you sign up for Docker Hub, use that user ID here
-    registry = "136356824322.dkr.ecr.us-east-2.amazonaws.com/mykubectl/dodo-repo:latest"
-
-    // Jenkins credentials ID for Docker Hub
-    registryCredential = 'K8S'
-
-    dockerImage = ''
-}
-
-stages {
-    stage('checkout') {
-        steps {
-            checkout scmGit(
-                branches: [[name: '*/master']],
-                extensions: [],
-                userRemoteConfigs: [[
-                    url: 'https://github.com/Richiyo07/myPythonDockerRepo'
-                ]]
-            )
-        }
+ pipeline {
+   tools {
+        maven 'maven3'
     }
-}
+    agent any
+    environment {
+        registry = "136356824322.dkr.ecr.us-east-2.amazonaws.com/mybuilder/docker/repo:latest"
+    }
+   
+    stages {
+        stage('Cloning Git') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Richiyo07/springboot-app']])     
+            }
+        }
+          stage ('Build') {
+          steps {
+            sh 'mvn clean install'           
+            }
+      }
+    // Building Docker images
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry 
+        }
+      }
+    }
+   
+    // Uploading Docker images into AWS ECR
+    stage('Pushing to ECR') {
+     steps{  
+         script {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 136356824322.dkr.ecr.us-east-2.amazonaws.com'
+                
+                                sh 'docker push 136356824322.dkr.ecr.us-east-2.amazonaws.com/mykubectl/dodo-repo:latest'
+         }
+        }
+      }
 
+       stage('k8s Deploy') {
+        steps{   
+            script {
+                withKubeConfig([credentialsId: 'K8S', serverUrl: '']) {
+                sh ('kubectl apply -f  eks-deploy-k8s.yaml')
+                }
+            }
+        }
+       }
+    }
 }
