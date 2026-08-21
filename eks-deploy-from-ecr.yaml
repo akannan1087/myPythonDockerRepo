@@ -34,3 +34,9 @@ spec:
       port: 80
       targetPort: 5000
   type: ClusterIP
+
+spec:
+  containers:
+  - name: kubectl-repo-container
+    image: 136356824322.dkr.ecr.us-east-2.amazonaws.com/yohyoh/kubectl-repo:latest
+    imagePullPolicy: Always # Forces K8s to pull the new 'latest' image every time
