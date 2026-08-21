@@ -1,19 +1,21 @@
- pipeline {
+
+pipeline {
    tools {
         maven 'maven3'
     }
     agent any
     environment {
-        registry = "136356824322.dkr.ecr.us-east-2.amazonaws.com/mybuilder/docker/repo:latest"
+        registry = " 136356824322.dkr.ecr.us-east-2.amazonaws.com/yohyoh/kubectl-repo:latest"
     }
    
     stages {
         stage('Cloning Git') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Richiyo07/springboot-app']])     
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/akannan1087/springboot-app']]])     
             }
         }
-          stage ('Build') {
+
+      stage ('Build') {
           steps {
             sh 'mvn clean install'           
             }
@@ -32,8 +34,7 @@
      steps{  
          script {
                 sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 136356824322.dkr.ecr.us-east-2.amazonaws.com'
-                
-                                sh 'docker push 136356824322.dkr.ecr.us-east-2.amazonaws.com/mykubectl/dodo-repo:latest'
+                sh 'docker push 136356824322.dkr.ecr.us-east-2.amazonaws.com/yohyoh/kubectl-repo:latest'
          }
         }
       }
@@ -41,7 +42,7 @@
        stage('K8S Deploy') {
         steps{   
             script {
-                withKubeConfig([credentialsId: 'k8s', serverUrl: '']) {
+                withKubeConfig([credentialsId: 'K8S', serverUrl: '']) {
                 sh ('kubectl apply -f  eks-deploy-k8s.yaml')
                 }
             }
